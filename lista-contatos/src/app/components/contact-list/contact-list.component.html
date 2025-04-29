@@ -1,0 +1,16 @@
+<h1>Lista de Contatos</h1>
+
+<table border="1">
+  <tr>
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Ação</th>
+  </tr>
+  <tr *ngFor="let contato of contatos">
+    <td>{{ contato.id }}</td>
+    <td>{{ contato.nome }}</td>
+    <td><button (click)="detalhe(contato.id)">Detalhe</button></td>
+  </tr>
+</table>
+<br><br><br>
+<button (click)="novoContato()">Novo Contato</button>
