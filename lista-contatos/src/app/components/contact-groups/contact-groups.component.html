@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Grupos de Contatos</h2>
+
+  <div class="form-add-group">
+    <input
+      type="text"
+      placeholder="Nome do novo grupo"
+      [(ngModel)]="newGroup"
+    />
+    <button (click)="addGroup()">Adicionar</button>
+  </div>
+
+  <ul class="group-list">
+    <li *ngFor="let group of groups">
+      <!-- Mostrar nome do grupo ou input para editar -->
+      <span *ngIf="editingGroup?.id !== group.id">{{ group.nome }}</span>
+      <input
+        *ngIf="editingGroup?.id === group.id"
+        type="text"
+        [(ngModel)]="editingGroup.nome"
+      />
+
+
+      <button
+        *ngIf="editingGroup?.id !== group.id"
+        (click)="editGroup(group)"
+      >
+        Editar
+      </button>
+      <button
+        *ngIf="editingGroup?.id === group.id"
+        (click)="saveGroup()"
+      >
+        Salvar
+      </button>
+      <button (click)="removeGroup(group.id)">Excluir</button>
+    </li>
+  </ul>
+</div>

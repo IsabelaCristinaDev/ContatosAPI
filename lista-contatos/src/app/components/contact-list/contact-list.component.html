@@ -1,16 +1,50 @@
 <h1>Lista de Contatos</h1>
 
+<div class="filtros">
+  <label for="grupoFiltro">Filtrar por grupo:</label>
+  <select [(ngModel)]="grupoSelecionado" name="grupoFiltro" id="grupoFiltro" (change)="contatosFiltrados()">
+    <option value="">Todos</option>
+    <option *ngFor="let grupo of gruposDisponiveis" [value]="grupo.nome">
+      {{ grupo.nome }}
+    </option>
+  </select>
+</div>
+
+<button (click)="mostrarSomenteFavoritos = !mostrarSomenteFavoritos">
+  {{ mostrarSomenteFavoritos ? 'Mostrar Todos' : 'Mostrar Favoritos'}}
+</button>
+
 <table border="1">
   <tr>
     <th>Id</th>
     <th>Nome</th>
+    <th>Grupos</th>
+    <th>Favorito</th>
     <th>Ação</th>
   </tr>
-  <tr *ngFor="let contato of contatos">
+  <tr *ngFor="let contato of contatosFiltrados()">
     <td>{{ contato.id }}</td>
     <td>{{ contato.nome }}</td>
-    <td><button (click)="detalhe(contato.id)">Detalhe</button></td>
+    <td>
+   <span *ngFor="let grupo of contato.grupos || []; let i = index">
+  {{ grupo.nome }}<span *ngIf="i < (contato.grupos?.length || 0) - 1">, </span>
+</span>
+
+
+    </td>
+    <td>
+      <button
+        *ngIf="contato.id !== undefined"
+        (click)="alternarFavorito(contato.id!)"
+        style="font-size: 20px; background: none; border: none; cursor: pointer;">
+        {{ contato.favorito ? '⭐' : '☆' }}
+      </button>
+    </td>
+    <td>
+      <button (click)="detalhe(contato.id)">Detalhe</button>
+    </td>
   </tr>
 </table>
-<br><br><br>
+
+<br><br>
 <button (click)="novoContato()">Novo Contato</button>

@@ -1,12 +1,57 @@
-<h1>Formulario de Contato</h1>
-<label>Nome: </label><input [(ngModel)]="nome" />
-<br />
-<label>Telefone: </label><input [(ngModel)]="telefone" />
-<br />
-<label>Email: </label><input [(ngModel)]="email" />
-<br />
-<button (click)="adiciona()">Salvar</button>
-<br />
-<button (click)="voltar()">Voltar</button>
+<div class="form-container">
+  <h2>Formulário de Contato</h2>
+
+  <div>
+    <label for="nome">Nome</label>
+    <input id="nome" [(ngModel)]="nome" placeholder="Digite o nome" name="nome" />
+  </div>
+
+  <div>
+    <label for="telefone">Telefone</label>
+    <input id="telefone" [(ngModel)]="telefone" placeholder="Digite o telefone" name="telefone" />
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" [(ngModel)]="email" placeholder="Digite o email" name="email" />
+  </div>
+
+  <div>
+    <label>Grupos</label>
+    <div class="group-select">
+      <select
+        multiple
+        [(ngModel)]="selectedGroups"
+        [compareWith]="compareGroups"
+        name="grupos"
+      >
+        <option *ngFor="let group of allGroups" [ngValue]="group">
+          {{ group.nome }}
+        </option>
+      </select>
+      <button type="button" (click)="abrirModalGrupo()">Criar Grupo</button>
+    </div>
+  </div>
+
+  <div>
+    <label>
+      <input type="checkbox" [(ngModel)]="favorito" name="favorito" />
+      Favorito
+    </label>
+  </div>
+
+  <div>
+    <button (click)="adiciona()">Salvar</button>
+    <button (click)="voltar()">Voltar</button>
+  </div>
 
 
+  <div class="modal" *ngIf="modalGrupoAberto">
+    <div class="modal-content">
+      <h3>Criar Novo Grupo</h3>
+      <input [(ngModel)]="novoGrupo" placeholder="Nome do grupo" />
+      <button (click)="criarGrupo()">Salvar</button>
+      <button (click)="fecharModalGrupo()">Cancelar</button>
+    </div>
+  </div>
+</div>

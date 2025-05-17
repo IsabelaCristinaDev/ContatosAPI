@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-contact-detail',
   imports: [],
   templateUrl: './contact-detail.component.html',
+  standalone: true,
   styleUrl: './contact-detail.component.css'
 })
 export class ContactDetailComponent {
